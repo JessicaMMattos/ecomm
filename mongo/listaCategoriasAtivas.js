@@ -1,5 +1,5 @@
 use("ecomm");
 
-var categorias = db.categorias.find({status: "ATIVA"});
+var categorias = db.categories.find({status: "ATIVA"});
 
 console.log(categorias);
