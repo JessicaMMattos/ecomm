@@ -2,6 +2,7 @@ version: "3.9"
 services:
   app-ecomm:
     image: jessicammattos/ecomm:1.0
+    build: .
     depends_on:
       - mongo-ecomm
 
