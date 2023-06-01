@@ -1,5 +1,5 @@
 use("ecomm");
 
-var produtos = db.products.find({"QUANTIDADE EM ESTOQUE": { $gte: 3}}, {"NOME": 1, "QUANTIDADE EM ESTOQUE": 1});
+var produtos = db.products.find({estoque: { $gte: 3}}, {nome: 1, estoque: 1});
 
 console.log(produtos);

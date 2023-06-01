@@ -1,5 +1,5 @@
 use("ecomm");
 
-var produtos = db.products.find({$or: [{"CATEGORIA": "LIVROS"}, {"CATEGORIA": "CELULARES"}]}, );
+var produtos = db.products.find({$or: [{categoria: "LIVROS"}, {categoria: "CELULARES"}]}, );
 
 console.log(produtos);

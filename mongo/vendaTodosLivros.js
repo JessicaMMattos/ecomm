@@ -1,8 +1,8 @@
 use("ecomm");
 
 var result = db.products.updateMany(
-    {"CATEGORIA": "LIVROS"}, 
-    {$set: { "QUANTIDADE EM ESTOQUE": 0}
+    {categoria: "LIVROS"}, 
+    {$set: { estoque: 0}
 });
 
 console.log(result);
