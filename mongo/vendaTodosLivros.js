@@ -1,6 +1,6 @@
 use("ecomm");
 
-var result = db.products.updateMany(
+const result = db.products.updateMany(
     {categoria: "LIVROS"}, 
     {$set: { estoque: 0}
 });
