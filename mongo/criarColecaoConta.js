@@ -35,7 +35,8 @@ const result = db.createCollection("accounts",
                 cpf: {
                     description: "CPF do usuário",
                     bsonType: "string",
-                    pattern: "^[0-9]{11}$"
+                    minLength: 11,
+                    maxLength: 11
                 },
                 telefone: {
                     description: "Telefone do usuário",
@@ -70,7 +71,8 @@ const result = db.createCollection("accounts",
                         cep: {
                             description: "CEP do endereço do usuário",
                             bsonType: "string",
-                            pattern: "^[0-9]{8}$"
+                            minLength: 8,
+                            maxLength: 8
                         },
                         cidade: {
                             description: "Cidade do usuário",
@@ -80,7 +82,8 @@ const result = db.createCollection("accounts",
                         uf: {
                             description: "UF do usuário",
                             bsonType: "string",
-                            pattern: "^[A-Z, a-z]{2}$"
+                            minLength: 2,
+                            maxLength: 2
                         }
                     }
                 }
