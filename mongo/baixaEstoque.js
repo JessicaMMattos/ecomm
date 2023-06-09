@@ -1,6 +1,7 @@
 use("ecomm");
 
-let estoqueAtual = db.products.findOne({nome:"Galaxy Tab S8"}).estoque;
+let produto = db.products.findOne({nome:"Galaxy Tab S8"});
+let estoqueAtual = produto.estoque;
 
 console.log(`O estoque é ${estoqueAtual}.`);
 
@@ -10,8 +11,9 @@ if(estoqueAtual >= 2) {
         {$inc:{estoque: -2}}
     );
 
-    estoqueAtual = db.products.findOne({nome:"Galaxy Tab S8"}).estoque;
-    console.log(`Com a decrementação de 2 unidades, o estoque atual é de: ${estoqueAtual}`);
+    produto = db.products.findOne({nome:"Galaxy Tab S8"});
+    estoqueAtual = produto.estoque;
+    console.log(`Com a decrementação de 2 unidades, o estoque atual é ${estoqueAtual}`);
 }
 else {
     console.log("Não foi possível realizar a decrementação do estoque!");
