@@ -29,7 +29,7 @@ paths:
               example: "Not Found"
   /admin/categories:
     post:
-      summary: Cria uma nova categoria de produtos
+      summary: Cria uma nova Categoria de produtos
       tags:
         - categorias
       requestBody:
@@ -47,6 +47,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categoria"
+  /categories/{id}:
+    get:
+      summary: Busca uma Categoria
+      tags:
+        - categorias
+      parameters:
+        - name: id
+          in: path
+          description: 'Identificador da categoria.'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        404:
+          description: Categoria não encontrada
+          content:
+            application/json:
+              example: "Not Found"
 components:
   schemas:
     Categoria:
