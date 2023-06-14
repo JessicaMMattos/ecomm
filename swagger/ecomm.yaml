@@ -21,12 +21,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Categoria"
+                $ref: "#/components/schemas/Categorias"
         404:
           description: Lista de categorias não encontrada
           content:
             application/json:
               example: "Not Found"
+  /admin/categories:
+    post:
+      summary: Cria uma nova categoria de produtos
+      tags:
+        - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+      responses:
+        201:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
 components:
   schemas:
     Categoria:
