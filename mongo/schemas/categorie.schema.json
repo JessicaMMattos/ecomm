@@ -1,0 +1,24 @@
+{
+    "$jsonSchema": {
+        "title": "Category Modeling",
+        "bsonType": "object",
+        "required":[ "_id", "nome", "status"],
+        "additionalProperties": false,
+        "properties": {
+            "_id":{
+                "description": "Identificador da categoria",
+                "bsonType": "objectId"
+            },
+            "nome": {
+                "description": "Nome da categoria",
+                "bsonType": "string",
+                "minLength": 3
+            },
+            "status": {
+                "description": "Status da categoria",
+                "bsonType": "string",
+                "enum":["ATIVA", "INATIVA"]
+            }
+        }
+    }
+}
