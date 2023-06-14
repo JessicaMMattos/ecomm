@@ -15,6 +15,12 @@ async function processarComando(argumentos) {
             console.log(categoriaEspecifica);
             break;
 
+        case '--inserirCategoria':
+            const arquivoNovaCategoria = argumentos[3];
+            const novaCategoria = await CategoryService.createCategory(arquivoNovaCategoria);
+            console.log(novaCategoria);
+            break;
+
         default:
             console.log(`Não foi possível identificar o comando: ${comando}.`);
     }
