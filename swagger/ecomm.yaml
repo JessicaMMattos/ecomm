@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Ecomm
+  description: Ecommerce baseado no Mercado Livre
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: API de produtos
+tags:
+  - name: categorias
+    description: Categorias de produtos da plataforma ecomm
+paths:
+  /categories:
+    get:
+      summary: Lista todas as Categorias
+      tags:
+        - categorias
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        404:
+          description: Lista de categorias não encontrada
+          content:
+            application/json:
+              example: "Not Found"
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        status:
+          type: string
+    Categorias:
+      type: array
+      items:
+        $ref: "#/components/schemas/Categoria"
