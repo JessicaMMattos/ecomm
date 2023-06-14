@@ -1,34 +1,34 @@
 export default class CategoryService {
-    
-    static async findCategories() {
 
-        const response = await fetch("http://localhost:3000/categories");
+    static async listaCategoria(response) {
+
         const status = response.status;
 
         console.log(`response status: ${status}`);
 
-        if(status == 200){
-            const listarCategorias = await response.json();   
-            return listarCategorias;
+        if(status === 200){
+            const listar = await response.json();   
+            return listar;
             
         } else {
-            return "Erro, não foi possível encontrar a lista de categorias!";
+            const descricaoErro = response.statusText;
+            return `Erro: ${descricaoErro}`;
         }    
+    }
+    
+    static async findCategories() {
+
+        const response = await fetch("http://localhost:3000/categories");
+        const listarCategorias = this.listaCategoria(response);
+
+        return listarCategorias;  
     }
 
     static async findCategoryById(idCategoria) {
 
         const response = await fetch(`http://localhost:3000/categories/${idCategoria}`);
-        const status = response.status;
-
-        console.log(`response status: ${status}`);
-
-        if(status == 200){
-            const categoria = await response.json();   
-            return categoria;
-            
-        } else {
-            return "Erro, não foi possível encontrar a categoria.";
-        }    
+        const categoria = this.listaCategoria(response);
+        
+        return categoria;
     }
 }
