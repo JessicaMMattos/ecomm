@@ -58,4 +58,27 @@ export default class CategoryService {
         }
 
     }
+
+    static async updateCategory(idAtualizarCategoria, dadosCategoriaAtualizada) {
+        
+        try{
+            const options = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: dadosCategoriaAtualizada
+            };
+    
+            const response = await fetch(`http://localhost:3000/categories/${idAtualizarCategoria}`, options);
+    
+            const categoriaAtualizada = this.listaCategoria(response);
+    
+            return categoriaAtualizada;
+
+        } catch (error){
+            console.log(error);
+            
+            return "Ocorreu um erro inesperado!";
+        }
+
+    }
 }

@@ -1,4 +1,5 @@
 import CategoryService from './CategoryService.js';
+import fs from 'fs';
 
 async function processarComando(argumentos) {
     const comando = argumentos[2];
@@ -19,6 +20,15 @@ async function processarComando(argumentos) {
             const arquivoNovaCategoria = argumentos[3];
             const novaCategoria = await CategoryService.createCategory(arquivoNovaCategoria);
             console.log(novaCategoria);
+            break;
+
+        case '--atualizarCategoria':
+            const idAtualizarCategoria = argumentos[3];
+            const arquivoCategoriaAtualizada = argumentos[4];
+            const conteudoCategoriaAtualizada = await fs.promises.readFile(arquivoCategoriaAtualizada, 'utf-8');
+
+            const categoriaAtualizada = await CategoryService.updateCategory(idAtualizarCategoria, conteudoCategoriaAtualizada);
+            console.log(categoriaAtualizada);
             break;
 
         default:
