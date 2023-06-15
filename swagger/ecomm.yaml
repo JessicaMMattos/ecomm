@@ -32,6 +32,8 @@ paths:
       summary: Cria uma nova Categoria de produtos
       tags:
         - categorias
+      security: 
+        - auth: []
       requestBody:
         content:
           application/json:
@@ -42,23 +44,86 @@ paths:
                   type: string
       responses:
         201:
-          description: "Sucesso"
+          description: Sucesso
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categoria"
+  /admin/categories/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador da categoria.
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Atualizar uma Categoria de produtos
+      tags:
+        - categorias
+      security: 
+        - auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                status:
+                  type: string
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+    delete:
+      summary: Remove uma Categoria de produtos
+      tags:
+        - categorias
+      security: 
+        - auth: []
+      responses:
+        200:
+          description: Deletado com Sucesso
+        404:
+          description: Erro, categoria não encontrada
+          content:
+            application/json:
+              example: "Not Found"
+    patch:
+      summary: Ativa uma Categoria de produtos
+      tags:
+        - categorias
+      security: 
+        - auth: []
+      responses:
+        200:
+          description: Categoria ativa com Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        404:
+          description: Erro, categoria não encontrada
+          content:
+            application/json:
+              example: "Not Found"
   /categories/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador da categoria.
+      required: true
+      schema:
+        type: integer
     get:
       summary: Busca uma Categoria
       tags:
         - categorias
-      parameters:
-        - name: id
-          in: path
-          description: 'Identificador da categoria.'
-          required: true
-          schema:
-            type: integer
       responses:
         200:
           description: Sucesso
@@ -86,3 +151,8 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Categoria"
+  securitySchemes:
+    auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
