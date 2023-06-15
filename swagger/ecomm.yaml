@@ -9,6 +9,8 @@ servers:
 tags:
   - name: categorias
     description: Categorias de produtos da plataforma ecomm
+  - name: produtos
+    description: Produtos da plataforma ecomm
 paths:
   /categories:
     get:
@@ -24,91 +26,6 @@ paths:
                 $ref: "#/components/schemas/Categorias"
         404:
           description: Lista de categorias não encontrada
-          content:
-            application/json:
-              example: "Not Found"
-  /admin/categories:
-    post:
-      summary: Cria uma nova Categoria de produtos
-      tags:
-        - categorias
-      security: 
-        - auth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                nome:
-                  type: string
-      responses:
-        201:
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Categoria"
-  /admin/categories/{id}:
-    parameters:
-    - name: id
-      in: path
-      description: Identificador da categoria.
-      required: true
-      schema:
-        type: integer
-    put:
-      summary: Atualizar uma Categoria de produtos
-      tags:
-        - categorias
-      security: 
-        - auth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                nome:
-                  type: string
-                status:
-                  type: string
-      responses:
-        201:
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Categoria"
-    delete:
-      summary: Remove uma Categoria de produtos
-      tags:
-        - categorias
-      security: 
-        - auth: []
-      responses:
-        200:
-          description: Deletado com Sucesso
-        404:
-          description: Erro, categoria não encontrada
-          content:
-            application/json:
-              example: "Not Found"
-    patch:
-      summary: Ativa uma Categoria de produtos
-      tags:
-        - categorias
-      security: 
-        - auth: []
-      responses:
-        200:
-          description: Categoria ativa com Sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Categoria"
-        404:
-          description: Erro, categoria não encontrada
           content:
             application/json:
               example: "Not Found"
@@ -136,6 +53,177 @@ paths:
           content:
             application/json:
               example: "Not Found"
+  /admin/categories:
+    post:
+      summary: Cria uma nova Categoria de produtos
+      tags:
+        - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+  /admin/categories/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador da categoria.
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Atualizar uma Categoria de produtos
+      tags:
+        - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                status:
+                  type: string
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+    delete:
+      summary: Remove uma Categoria de produtos
+      tags:
+        - categorias
+      responses:
+        200:
+          description: Deletado com Sucesso
+        404:
+          description: Erro, categoria não encontrada
+          content:
+            application/json:
+              example: "Not Found"
+    patch:
+      summary: Ativa uma Categoria de produtos
+      tags:
+        - categorias
+      responses:
+        200:
+          description: Categoria ativa com Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        404:
+          description: Erro, categoria não encontrada
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/products:
+    post:
+      summary: Cria um novo produto
+      tags:
+        - produtos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Produto"
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+  /products:
+    get:
+      summary: Lista todos os Produtos
+      tags:
+        - produtos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produtos"
+        404:
+          description: Lista de produtos não encontrada
+          content:
+            application/json:
+              example: "Not Found"
+  /products/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Produto.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Busca um Produto
+      tags:
+        - produtos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/products/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Produto.
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Atualizar um Produto
+      tags:
+        - produtos
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/Produto"
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+    delete:
+      summary: Remove um Produto
+      tags:
+        - produtos
+      responses:
+        200:
+          description: Deletado com Sucesso
+        404:
+          description: Erro, categoria não encontrada
+          content:
+            application/json:
+              example: "Not Found"
 components:
   schemas:
     Categoria:
@@ -151,8 +239,22 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Categoria"
-  securitySchemes:
-    auth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+    Produto:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        slug:
+          type: string
+        preco:
+          type: number
+        estoque:
+          type: integer
+        categoria:
+          $ref: "#/components/schemas/Categoria"
+    Produtos:
+      type: array
+      items:
+        $ref: "#/components/schemas/Produto"
