@@ -31,6 +31,12 @@ async function processarComando(argumentos) {
             console.log(categoriaAtualizada);
             break;
 
+        case '--excluirCategoria':
+            const idExcluirCategoria = argumentos[3];
+            const categoriaExcluida = await CategoryService.deleteCategory(idExcluirCategoria);
+            console.log(categoriaExcluida);
+            break;
+
         default:
             console.log(`Não foi possível identificar o comando: ${comando}.`);
     }

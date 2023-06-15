@@ -81,4 +81,26 @@ export default class CategoryService {
         }
 
     }
+
+    static async deleteCategory(idExcluirCategoria) {
+        
+        try{
+            const options = {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            };
+    
+            const response = await fetch(`http://localhost:3000/categories/${idExcluirCategoria}`, options);
+    
+            const categoriaExcluida = this.listaCategoria(response);
+    
+            return categoriaExcluida;
+
+        } catch (error){
+            console.log(error);
+            
+            return "Ocorreu um erro inesperado!";
+        }
+
+    }
 }
