@@ -11,21 +11,23 @@ tags:
     description: Categorias de produtos da plataforma ecomm
   - name: produtos
     description: Produtos da plataforma ecomm
+  - name: usuarios
+    description: Usuários da plataforma ecomm
 paths:
   /categories:
     get:
-      summary: Lista todas as Categorias
+      summary: Lista todas as Categorias.
       tags:
         - categorias
       responses:
         200:
-          description: Sucesso
+          description: Sucesso, exibe lista de categorias.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categorias"
         404:
-          description: Lista de categorias não encontrada
+          description: Lista de categorias não encontrada.
           content:
             application/json:
               example: "Not Found"
@@ -38,24 +40,24 @@ paths:
       schema:
         type: integer
     get:
-      summary: Busca uma Categoria
+      summary: Busca uma Categoria pelo id.
       tags:
         - categorias
       responses:
         200:
-          description: Sucesso
+          description: Sucesso, exibe detalhamento da categoria.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categoria"
         404:
-          description: Categoria não encontrada
+          description: Categoria não encontrada.
           content:
             application/json:
               example: "Not Found"
   /admin/categories:
     post:
-      summary: Cria uma nova Categoria de produtos
+      summary: Cria uma nova Categoria de produtos.
       tags:
         - categorias
       requestBody:
@@ -68,7 +70,7 @@ paths:
                   type: string
       responses:
         201:
-          description: Sucesso
+          description: Categoria criada com sucesso.
           content:
             application/json:
               schema:
@@ -82,7 +84,7 @@ paths:
       schema:
         type: integer
     put:
-      summary: Atualizar uma Categoria de produtos
+      summary: Atualiza uma Categoria de produtos.
       tags:
         - categorias
       requestBody:
@@ -97,42 +99,42 @@ paths:
                   type: string
       responses:
         201:
-          description: Sucesso
+          description: Categoria atualizada com sucesso.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categoria"
     delete:
-      summary: Remove uma Categoria de produtos
+      summary: Remove uma Categoria de produtos.
       tags:
         - categorias
       responses:
         200:
-          description: Deletado com Sucesso
+          description: Categoria removida com sucesso.
         404:
-          description: Erro, categoria não encontrada
+          description: Erro, categoria não encontrada.
           content:
             application/json:
               example: "Not Found"
     patch:
-      summary: Ativa uma Categoria de produtos
+      summary: Ativa uma Categoria de produtos.
       tags:
         - categorias
       responses:
         200:
-          description: Categoria ativa com Sucesso
+          description: Categoria ativada com Sucesso.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categoria"
         404:
-          description: Erro, categoria não encontrada
+          description: Erro, categoria não encontrada.
           content:
             application/json:
               example: "Not Found"
   /admin/products:
     post:
-      summary: Cria um novo produto
+      summary: Cria um novo produto.
       tags:
         - produtos
       requestBody:
@@ -142,25 +144,25 @@ paths:
               $ref: "#/components/schemas/Produto"
       responses:
         201:
-          description: Sucesso
+          description: Produto criado com sucesso.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Produto"
   /products:
     get:
-      summary: Lista todos os Produtos
+      summary: Lista todos os Produtos.
       tags:
         - produtos
       responses:
         200:
-          description: Sucesso
+          description: Sucesso, exibe a lista de produtos.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Produtos"
         404:
-          description: Lista de produtos não encontrada
+          description: Lista de produtos não encontrada.
           content:
             application/json:
               example: "Not Found"
@@ -173,18 +175,18 @@ paths:
       schema:
         type: integer
     get:
-      summary: Busca um Produto
+      summary: Busca um Produto.
       tags:
         - produtos
       responses:
         200:
-          description: Sucesso
+          description: Sucesso, exibe detalhamento do produto.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Produto"
         404:
-          description: Produto não encontrado
+          description: Produto não encontrado.
           content:
             application/json:
               example: "Not Found"
@@ -197,7 +199,7 @@ paths:
       schema:
         type: integer
     put:
-      summary: Atualizar um Produto
+      summary: Atualizar um Produto.
       tags:
         - produtos
       requestBody:
@@ -207,23 +209,117 @@ paths:
                 $ref: "#/components/schemas/Produto"
       responses:
         201:
-          description: Sucesso
+          description: Produto atualizado com sucesso.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Produto"
     delete:
-      summary: Remove um Produto
+      summary: Remove um Produto.
       tags:
         - produtos
       responses:
         200:
-          description: Deletado com Sucesso
+          description: Produto removido com sucesso.
         404:
-          description: Erro, categoria não encontrada
+          description: Erro, Produto não encontrado.
           content:
             application/json:
               example: "Not Found"
+  /admin/users:
+    post:
+      summary: Insere um novo Usuário.
+      tags:
+        - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+      responses:
+        201:
+          description: Usuário inserido com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+    get:
+      summary: Lista todos os Usuários.
+      tags:
+        - usuarios
+      responses:
+        200:
+          description: Sucesso, exibe lista de usuários.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuarios"
+        404:
+          description: Lista de Usuários não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+  /users/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Usuário.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Busca um Usuário.
+      tags:
+        - usuarios
+      responses:
+        200:
+          description: Sucesso, exibe detalhamento do usuário.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        404:
+          description: Usuário não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/users/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Usuário.
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Atualiza um Usuário.
+      tags:
+        - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/Usuario"
+      responses:
+        201:
+          description: Usuário atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+    delete:
+      summary: Remove um Usuário.
+      tags:
+        - usuarios
+      responses:
+        200:
+          description: Usuário removido com sucesso.
+        404:
+          description: Erro, Usuário não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
+    
 components:
   schemas:
     Categoria:
@@ -258,3 +354,37 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Produto"
+    Endereco:
+      type: object
+      properties:
+        rua:
+          type: string
+        numero:
+          type: string
+        complemento:
+          type: string
+        cep:
+          type: string
+        cidade:
+          type: string
+        estado:
+          type: string
+    Usuario: 
+      type: object
+      properties:
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        endereco:
+          $ref: "#/components/schemas/Endereco"
+    Usuarios:
+      type: array
+      items:
+        $ref: "#/components/schemas/Usuario"
