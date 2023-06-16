@@ -168,6 +168,48 @@ paths:
           content:
             application/json:
               example: "Not Found"
+  /products/filter:
+    get:
+      summary: Lista Produtos de acordo com filtro.
+      tags:
+        - produtos
+      parameters:
+      - name: precoMinimo
+        in: query
+        description: Preço mínimo dos produtos.
+        required: false
+        schema:
+          type: number
+      - name: precoMaximo
+        in: query
+        description: Preço máximo dos produtos.
+        required: false
+        schema:
+          type: number
+      - name: categoria
+        in: query
+        description: Categoria dos produtos desejados.
+        required: false
+        schema:
+          type: string
+      - name: estoqueMinimo
+        in: query
+        description: Estoque mínimo dos produtos desejados.
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Sucesso, exibe a lista de produtos filtrados.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produtos"
+        404:
+          description: Lista de produtos não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
   /products/{id}:
     parameters:
     - name: id
