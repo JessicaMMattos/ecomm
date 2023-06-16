@@ -13,6 +13,8 @@ tags:
     description: Produtos da plataforma ecomm
   - name: usuarios
     description: Usuários da plataforma ecomm
+  - name: pedidos
+    description: Pedidos da plataforma ecomm
 paths:
   /categories:
     get:
@@ -319,7 +321,65 @@ paths:
           content:
             application/json:
               example: "Not Found"
-    
+  /orders:
+    get:
+      summary: Lista todos os Pedidos.
+      tags:
+        - pedidos
+      responses:
+        200:
+          description: Sucesso, exibe a lista de pedidos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pedido"
+        404:
+          description: Lista de pedidos não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+    post:
+      summary: Cria um novo Pedido.
+      tags:
+        - pedidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pedido"
+      responses:
+        201:
+          description: Pedido criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pedido"
+  /orders/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Pedido.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Busca um Pedido.
+      tags:
+        - pedidos
+      responses:
+        200:
+          description: Sucesso, exibe detalhamento do pedido.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pedido"
+        404:
+          description: Pedido não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
 components:
   schemas:
     Categoria:
@@ -388,3 +448,25 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Usuario"
+    Pedido:
+      type: object
+      properties:
+        idCliente:
+          type: integer
+        enderecoEntrega:
+          $ref: "#/components/schemas/Endereco"
+        itens:
+          type: array
+          items:
+              $ref: "#/components/schemas/Item"
+    Item:
+      type: object
+      properties:
+        idProduto:
+          type: integer
+        quantidade:
+          type: integer
+        valorDesconto:
+          type: number
+        precoUnitario:
+          type: number
