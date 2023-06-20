@@ -1,0 +1,514 @@
+openapi: 3.0.3
+info:
+  title: Ecomm
+  description: Ecommerce baseado no Mercado Livre
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: API de produtos
+tags:
+  - name: categorias
+    description: Categorias de produtos da plataforma ecomm
+  - name: produtos
+    description: Produtos da plataforma ecomm
+  - name: usuarios
+    description: Usuários da plataforma ecomm
+  - name: pedidos
+    description: Pedidos da plataforma ecomm
+paths:
+  /categories:
+    get:
+      summary: Lista todas as Categorias.
+      tags:
+        - categorias
+      responses:
+        200:
+          description: Sucesso, exibe lista de categorias.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categorias"
+        404:
+          description: Lista de categorias não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+  /categories/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador da categoria.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Busca uma Categoria pelo id.
+      tags:
+        - categorias
+      responses:
+        200:
+          description: Sucesso, exibe detalhamento da categoria.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        404:
+          description: Categoria não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/categories:
+    post:
+      summary: Cria uma nova Categoria de produtos.
+      tags:
+        - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+      responses:
+        201:
+          description: Categoria criada com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+  /admin/categories/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador da categoria.
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Atualiza uma Categoria de produtos.
+      tags:
+        - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                status:
+                  type: string
+      responses:
+        201:
+          description: Categoria atualizada com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+    delete:
+      summary: Remove uma Categoria de produtos.
+      tags:
+        - categorias
+      responses:
+        200:
+          description: Categoria removida com sucesso.
+        404:
+          description: Erro, categoria não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+    patch:
+      summary: Ativa uma Categoria de produtos.
+      tags:
+        - categorias
+      responses:
+        200:
+          description: Categoria ativada com Sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+        404:
+          description: Erro, categoria não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/products:
+    post:
+      summary: Cria um novo produto.
+      tags:
+        - produtos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Produto"
+      responses:
+        201:
+          description: Produto criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+  /products:
+    get:
+      summary: Lista todos os Produtos.
+      tags:
+        - produtos
+      responses:
+        200:
+          description: Sucesso, exibe a lista de produtos.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produtos"
+        404:
+          description: Lista de produtos não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+  /products/filter:
+    get:
+      summary: Lista Produtos de acordo com filtro.
+      tags:
+        - produtos
+      parameters:
+      - name: precoMinimo
+        in: query
+        description: Preço mínimo dos produtos.
+        required: false
+        schema:
+          type: number
+      - name: precoMaximo
+        in: query
+        description: Preço máximo dos produtos.
+        required: false
+        schema:
+          type: number
+      - name: categoria
+        in: query
+        description: Categoria dos produtos desejados.
+        required: false
+        schema:
+          type: string
+      - name: estoqueMinimo
+        in: query
+        description: Estoque mínimo dos produtos desejados.
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Sucesso, exibe a lista de produtos filtrados.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produtos"
+        404:
+          description: Lista de produtos não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+  /products/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Produto.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Busca um Produto.
+      tags:
+        - produtos
+      responses:
+        200:
+          description: Sucesso, exibe detalhamento do produto.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+        404:
+          description: Produto não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/products/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Produto.
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Atualizar um Produto.
+      tags:
+        - produtos
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/Produto"
+      responses:
+        201:
+          description: Produto atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+    delete:
+      summary: Remove um Produto.
+      tags:
+        - produtos
+      responses:
+        200:
+          description: Produto removido com sucesso.
+        404:
+          description: Erro, Produto não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/users:
+    post:
+      summary: Insere um novo Usuário.
+      tags:
+        - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+      responses:
+        201:
+          description: Usuário inserido com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+    get:
+      summary: Lista todos os Usuários.
+      tags:
+        - usuarios
+      responses:
+        200:
+          description: Sucesso, exibe lista de usuários.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuarios"
+        404:
+          description: Lista de Usuários não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+  /users/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Usuário.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Busca um Usuário.
+      tags:
+        - usuarios
+      responses:
+        200:
+          description: Sucesso, exibe detalhamento do usuário.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        404:
+          description: Usuário não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
+  /admin/users/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Usuário.
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Atualiza um Usuário.
+      tags:
+        - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/Usuario"
+      responses:
+        201:
+          description: Usuário atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+    delete:
+      summary: Remove um Usuário.
+      tags:
+        - usuarios
+      responses:
+        200:
+          description: Usuário removido com sucesso.
+        404:
+          description: Erro, Usuário não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
+  /orders:
+    get:
+      summary: Lista todos os Pedidos.
+      tags:
+        - pedidos
+      responses:
+        200:
+          description: Sucesso, exibe a lista de pedidos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pedido"
+        404:
+          description: Lista de pedidos não encontrada.
+          content:
+            application/json:
+              example: "Not Found"
+    post:
+      summary: Cria um novo Pedido.
+      tags:
+        - pedidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pedido"
+      responses:
+        201:
+          description: Pedido criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pedido"
+  /orders/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: Identificador do Pedido.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Busca um Pedido.
+      tags:
+        - pedidos
+      responses:
+        200:
+          description: Sucesso, exibe detalhamento do pedido.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pedido"
+        404:
+          description: Pedido não encontrado.
+          content:
+            application/json:
+              example: "Not Found"
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        status:
+          type: string
+    Categorias:
+      type: array
+      items:
+        $ref: "#/components/schemas/Categoria"
+    Produto:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        slug:
+          type: string
+        preco:
+          type: number
+        estoque:
+          type: integer
+        categoria:
+          $ref: "#/components/schemas/Categoria"
+    Produtos:
+      type: array
+      items:
+        $ref: "#/components/schemas/Produto"
+    Endereco:
+      type: object
+      properties:
+        rua:
+          type: string
+        numero:
+          type: string
+        complemento:
+          type: string
+        cep:
+          type: string
+        cidade:
+          type: string
+        estado:
+          type: string
+    Usuario: 
+      type: object
+      properties:
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        endereco:
+          $ref: "#/components/schemas/Endereco"
+    Usuarios:
+      type: array
+      items:
+        $ref: "#/components/schemas/Usuario"
+    Pedido:
+      type: object
+      properties:
+        idCliente:
+          type: integer
+        enderecoEntrega:
+          $ref: "#/components/schemas/Endereco"
+        itens:
+          type: array
+          items:
+              $ref: "#/components/schemas/Item"
+    Item:
+      type: object
+      properties:
+        idProduto:
+          type: integer
+        quantidade:
+          type: integer
+        valorDesconto:
+          type: number
+        precoUnitario:
+          type: number
