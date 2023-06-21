@@ -8,6 +8,18 @@ class categoriesController {
     res.status(200).json(listarCategorias);
   };
 
+  static listarCategoriaPorId = async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      const listarCategoriaPorId = await categories.findById(id);
+      res.status(200).json(listarCategoriaPorId);        
+
+    } catch (error) {
+      res.status(400).json({ message: `${error.message} - Id da Categoria não localizado.` });
+    }
+  };
+
   static inserirCategoria = async (req, res) => {
     try {
       let novaCategoria = new categories(req.body);
