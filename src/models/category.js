@@ -4,14 +4,9 @@ const categoriesSchema = new mongoose.Schema(
   {
     _id: {type: mongoose.Schema.Types.ObjectId},
     nome: {
-      type: String, 
-      minLength: 3, 
-      validate: {
-        validator: function(validar) {
-          return /^[^0-9]{1}[A-Z, a-z, 0-9]$/.test(validar);
-        },
-        message: props => `${props.value} Nome da categoria inválido.`
-      },
+      type: String,
+      match: /^(?![0-9])[a-zA-Z0-9]{3,}$/,
+      required: true
     },
     status: {type: String, enum: ["ATIVA", "INATIVA"]}
   }
