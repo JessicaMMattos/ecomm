@@ -1,4 +1,7 @@
 import request from 'supertest';
+import {
+  describe, expect, it, jest,
+} from '@jest/globals';
 import app from '../../app.js';
 
 let server;
@@ -49,6 +52,42 @@ describe('GET em /categories/:id', () => {
   it('Deve retornar o detalhamento da categoria pelo ID', async () => {
     await request(app)
       .get(`/categories/${idResposta}`)
+      .expect(200);
+  });
+});
+
+describe('PUT em /admin/categories/:id', () => {
+  
+  it.each([
+    ['nome', { nome: 'VESTUARIO' }],
+    ['status', { status: 'INATIVA' }]
+
+  ])('Deve alterar o campo %s', async (chave, param) => {
+
+    const requisicao = { request };
+    const spy = jest.spyOn(requisicao, 'request');
+
+    await requisicao.request(app)
+      .put(`/admin/categories/${idResposta}`)
+      .send(param)
+      .expect(200);
+
+    expect(spy).toHaveBeenCalled();
+  });
+});
+
+describe('PATCH em /admin/categories/:id', () => {
+  it('Deve ativar a categoria pelo ID', async () => {
+    await request(app)
+      .patch(`/admin/categories/${idResposta}`)
+      .expect(200);
+  });
+});
+
+describe('DELETE em /admin/categories/:id', () => {
+  it('Deletar categoria selecionada', async () => {
+    await request(app)
+      .delete(`/admin/categories/${idResposta}`)
       .expect(200);
   });
 });

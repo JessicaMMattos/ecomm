@@ -7,6 +7,8 @@
     "scripts": {
         "start": "nodemon server.js",
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --verbose",
+        "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watch",
+        "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --coverage",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix"
     },

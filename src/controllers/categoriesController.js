@@ -10,7 +10,7 @@ class categoriesController {
 
   static listarCategoriaPorId = async (req, res) => {
     try {
-      const id = req.params.id;
+      let id = req.params.id;
 
       const listarCategoriaPorId = await categories.findById(id);
       res.status(200).json(listarCategoriaPorId);        
@@ -26,12 +26,48 @@ class categoriesController {
       novaCategoria._id = new mongoose.Types.ObjectId();
 
       await novaCategoria.save();
-      res.status(201).send(novaCategoria.toJSON());
+      res.status(201).json(novaCategoria);
 
     } catch (error) {
       res.status(500).json({ message: `${error.message} - Erro ao cadastrar nova categoria.` });
     }
   };
+
+  static atualizarCategoria = async (req, res) => {
+    try{
+      let id = req.params.id;
+
+      await categories.findByIdAndUpdate(id, {$set: req.body});
+      res.status(200).json({ message: 'Categoria atualizada com sucesso.' });
+
+    } catch (error) {
+      res.status(400).json({ message: `${error.message} - Erro, categoria não encontrada.` });
+    }
+  }
+
+  static excluirCategoria = async (req, res) => {
+    try{
+      let id = req.params.id;
+
+      await categories.findByIdAndDelete(id);
+      res.status(200).json({message: 'Categoria removida com sucesso.'})
+
+    } catch (error) {
+      res.status(400).json({ message: `${error.message} - Erro, categoria não encontrada.` });
+    }
+  }
+
+  static ativarCategoria = async (req, res) => {
+    try{
+      let id = req.params.id;
+
+      await categories.findByIdAndUpdate(id, {status: "ATIVA"});
+      res.status(200).json({message: 'Categoria ativa com sucesso.'});
+
+    } catch (error) {
+      res.status(400).json({ message: `${error.message} - Erro, categoria não encontrada.` });
+    }
+  }
 
 }
 
