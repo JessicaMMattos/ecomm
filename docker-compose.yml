@@ -3,8 +3,12 @@ services:
   app-ecomm:
     image: jessicammattos/ecomm:1.0
     build: .
+    ports:
+     - "3000:3000"
     depends_on:
       - mongo-ecomm
+    environment:
+      MONGO_HOST: mongo-ecomm
 
   mongo-ecomm:
     image: mongo

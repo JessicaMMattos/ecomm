@@ -40,7 +40,7 @@ paths:
       description: Identificador da categoria.
       required: true
       schema:
-        type: integer
+        type: string
     get:
       summary: Busca uma Categoria pelo id.
       tags:
@@ -70,6 +70,8 @@ paths:
               properties:
                 nome:
                   type: string
+                status:
+                  type: string
       responses:
         201:
           description: Categoria criada com sucesso.
@@ -84,7 +86,7 @@ paths:
       description: Identificador da categoria.
       required: true
       schema:
-        type: integer
+        type: string
     put:
       summary: Atualiza uma Categoria de produtos.
       tags:
@@ -217,7 +219,7 @@ paths:
       description: Identificador do Produto.
       required: true
       schema:
-        type: integer
+        type: string
     get:
       summary: Busca um Produto.
       tags:
@@ -241,7 +243,7 @@ paths:
       description: Identificador do Produto.
       required: true
       schema:
-        type: integer
+        type: string
     put:
       summary: Atualizar um Produto.
       tags:
@@ -310,7 +312,7 @@ paths:
       description: Identificador do Usuário.
       required: true
       schema:
-        type: integer
+        type: string
     get:
       summary: Busca um Usuário.
       tags:
@@ -334,7 +336,7 @@ paths:
       description: Identificador do Usuário.
       required: true
       schema:
-        type: integer
+        type: string
     put:
       summary: Atualiza um Usuário.
       tags:
@@ -405,7 +407,7 @@ paths:
       description: Identificador do Pedido.
       required: true
       schema:
-        type: integer
+        type: string
     get:
       summary: Busca um Pedido.
       tags:
@@ -428,7 +430,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         nome:
           type: string
         status:
@@ -451,7 +453,7 @@ components:
         estoque:
           type: integer
         categoria:
-          $ref: "#/components/schemas/Categoria"
+          type: string
     Produtos:
       type: array
       items:
